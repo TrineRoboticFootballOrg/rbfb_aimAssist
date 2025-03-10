@@ -1,0 +1,47 @@
+import cv2
+import sys
+import filterCamFrame
+
+
+s = 0
+if len(sys.argv) > 1:
+    s = sys.argv[1]
+
+source = cv2.VideoCapture(s)
+
+win_name = "Camera Preview"
+cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+
+
+PREVIEW  = 0
+BLUR     = 1
+FEATURES = 2
+CANNY    = 3
+
+image_filter = PREVIEW
+
+while cv2.waitKey(1) != 27: #escape
+    has_frame, frame = source.read()
+    if not has_frame:
+        break
+
+
+    key = cv2.waitKey(1)
+    if key == ord("C") or key == ("c"):
+        image_filter = CANNY
+    elif key == ord("B") or key == ("b"):
+        image_filter = BLUR
+    elif key == ord("F") or key == ("f"):
+        image_filter = FEATURES
+    elif key == ord("P") or key == ("p"):
+        image_filter = PREVIEW
+    
+
+    frame = filterCamFrame.filterCamFrame(frame, image_filter)
+    cv2.imshow(win_name, frame)
+
+
+
+
+source.release()
+cv2.destroyWindow(win_name)
