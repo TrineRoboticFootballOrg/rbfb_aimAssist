@@ -1,3 +1,9 @@
+####################################
+#
+# This file is deprecated
+#
+####################################
+
 import cv2
 import numpy as np
 from imutils.video import FPS

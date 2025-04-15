@@ -1,8 +1,16 @@
+###########################################
+#
+# This file initializes pins, Enum types, the cv2 window, and variables used throughout
+#
+# Author: Caden Daffron
+#
+###########################################
+
 import sys
 import cv2
-import wiringpi
-from wiringpi import GPIO
-from imutils.video import FPS
+#import wiringpi
+#from wiringpi import GPIO
+from gpiozero import LED, Button
 from enum import Enum
 
 class filter_mode(Enum):
@@ -11,35 +19,38 @@ class filter_mode(Enum):
 	HSV      = 2
 
 class algo_sel(Enum):
-	FEATURE  = 0
-	CANNY    = 1
-	
+    FEATURE  = 0
+    CANNY    = 1
+    CLUSTER  = 2
+
+
+
 def init():
     s = 0
 
     global VISION_ACT_PIN
-    global TURN_LEFT_PIN
-    global TURN_RIGHT_PIN
-    VISION_ACT_PIN = 0
-    TURN_LEFT_PIN = 1
-    TURN_RIGHT_PIN = 2
-    wiringpi.wiringPiSetup()
-    print("VISIONACTPIN", VISION_ACT_PIN)
-    wiringpi.pinMode(VISION_ACT_PIN, GPIO.INPUT)
-    wiringpi.pullUpDnControl(VISION_ACT_PIN, wiringpi.PUD_UP)
-    wiringpi.pinMode(TURN_LEFT_PIN, GPIO.OUTPUT)
-    wiringpi.digitalWrite(TURN_LEFT_PIN, GPIO.LOW)
-    wiringpi.pinMode(TURN_RIGHT_PIN, GPIO.OUTPUT)
-    wiringpi.digitalWrite(TURN_RIGHT_PIN, GPIO.LOW)
+    global Tx_PIN
+    VISION_ACT_PIN = 3
+    Tx_PIN = 4
+    #wiringpi.wiringPiSetup()
+    #wiringpi.pinMode(VISION_ACT_PIN, GPIO.INPUT)
+    #wiringpi.pullUpDnControl(VISION_ACT_PIN, wiringpi.PUD_DOWN)
+    #wiringpi.pinMode(Tx_PIN, GPIO.OUTPUT)
+    #wiringpi.digitalWrite(Tx_PIN, GPIO.HIGH)
+    
+    VISION_ACT_PIN = Button(23, pull_up=False)
+    Tx_PIN = LED(24)
+    Tx_PIN.on()
 
-    algo = algo_sel.FEATURE
-    image_filter = []
 
     source = cv2.VideoCapture(s)
     X_MIDLINE = int(source.get(cv2.CAP_PROP_FRAME_WIDTH))/2
     print("MID", X_MIDLINE)
     win_name = "Camera Preview"
-    cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
-    fps = FPS().start()
+    #cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
 
-    return (source, win_name, fps, image_filter, algo, X_MIDLINE)
+
+
+    return (source, win_name, Tx_PIN, VISION_ACT_PIN, X_MIDLINE)
+
+init()
