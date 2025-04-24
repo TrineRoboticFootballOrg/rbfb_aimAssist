@@ -69,7 +69,7 @@ def detectVerticals(frame, detect_vert_band_min):
         col_corners[RIGHT_BAR].append([vert_bars[RIGHT_BAR][0][X_COORD], vert_bars[RIGHT_BAR][0][Y_MIN_COORD]])
         col_corners[RIGHT_BAR].append([vert_bars[RIGHT_BAR][-1][X_COORD], vert_bars[RIGHT_BAR][-1][Y_MAX_COORD]])
     
-    print(col_corners)
+    #print(col_corners)
     
     return col_corners
 

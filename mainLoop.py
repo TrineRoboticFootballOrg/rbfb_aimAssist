@@ -16,7 +16,7 @@ from displayFrame import *
 from UARTTrans import *
 #from imutils.video import FPS
 # CONSTANT PARAMETERS
-THROW_READY_MIN_FRAMES = 5 # Number of consecutive frames in which turn must be < THROW_READY_TURN_TH to initiate throw
+THROW_READY_MIN_FRAMES = 7 # Number of consecutive frames in which turn must be < THROW_READY_TURN_TH to initiate throw
 # END CONSTANT PARAMETERS
 
 

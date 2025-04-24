@@ -15,7 +15,8 @@ VERT_Y = 1
 # CONSTANT PARAMETERS
 HZ_MIDPOINT_WT = 0.7
 VT_MIDPOINT_WT = 0.3
-THROW_READY_TURN_TH = 40   
+THROW_READY_TURN_TH = 10
+SLOW_TURN_TH = 40   
 # END CONSTANT PARAMETERS
 
 def computeTurn(hz_bar, vert_bars, X_MIDLINE):
@@ -51,12 +52,14 @@ def computeTurn(hz_bar, vert_bars, X_MIDLINE):
     if count != 0:
         avg_midpoint /= overall_wt * count
     
-    #print("Avg_midpoint", avg_midpoint)
+    print("Avg_midpoint", avg_midpoint)
 
     error = (avg_midpoint - X_MIDLINE) / 4
     if abs(error) > 127:
         return 127 * (abs(error)/error)
     elif abs(error) < THROW_READY_TURN_TH:
         return 0
+    elif abs(error) < SLOW_TURN_TH:
+        return error * 0.5
     else:
         return error

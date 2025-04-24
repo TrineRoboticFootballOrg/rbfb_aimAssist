@@ -6,6 +6,11 @@
 # It then averages the lengths of each found line to find the midpoint of the receiver, to be passed along for aiming purposes
 # It also calls the compute distance function to find the distance for throw power
 #
+# Functions:
+# clusterDetect(frame, X_MIDLINE)
+# frame - image after inversion, transform to HSV, and thresholding. 2D matrix of values 0 and 255, size depending on webcam resolution
+# X_MIDLINE - constant int, 1/2 of X_MAX 
+#
 # Author: Caden Daffron
 #
 ###################################
@@ -33,7 +38,7 @@ def clusterDetect(frame, X_MIDLINE):
     # Format: [X_MIN, X_MAX, Y_COORD]
     hz_bar = detectHorizontal(frame)
     
-# THIS SECTION COULD BE UNNECESSARY/COUNTERPRODUCTIVE
+    # If hz_bar is found, only look below it for the vertical bars. Saves computation time by eliminating space above
     detect_vert_band_min = 9999999 # Placeholder, will be overridden
     if hz_bar != []:
         for row in hz_bar:
@@ -41,10 +46,10 @@ def clusterDetect(frame, X_MIDLINE):
                 detect_vert_band_min = row[X_MIN_COORD]
     else:
         detect_vert_band_min = 0
-# END POSSIBLY COUNTERPRODUCTIVE
     
     # Format: [Left_Bar_Corners, Right_Bar_Corners]
-    # Format: [[[Top_Left_x, Top_Left_y], [Bot_Right_x, Bot_Right_y]], [[Top_Left_x, Top_Left_y], [Bot_Right_x, Bot_Right_y]]]
+    # Format: [[[Top_Left_x, Top_Left_y], [Bot_Right_x, Bot_Right_y]], 
+    #          [[Top_Left_x, Top_Left_y], [Bot_Right_x, Bot_Right_y]]]
     vert_bars = detectVerticals(frame, detect_vert_band_min)
     
     if hz_bar == [] and vert_bars == [[],[]]:

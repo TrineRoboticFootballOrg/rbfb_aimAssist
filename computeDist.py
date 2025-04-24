@@ -1,8 +1,15 @@
 #########################################
 #
-# This function takes input of the length(in pixels)
-# of the top bar and calculates the receiver's distance using the pinhole projection formula
+# This function accepts the coordinates of the found shapes' corners,
+# calculates the distance based on as many dimensions as available out of horizontal bar length and thickness,
+# and average vertical bar length and thickness, calculates the distance based on each available measurement
+# using the pinhole projection formula, then computes a weighted average to find an estimate of the receiver's distance 
 # 
+# Functions:
+# avgDist(hz_bar, vert_bars)
+# hz_bar - list of [x_min, x_max, y_coord] for all found lines
+# vert_bars - coords of corners of found vertical bars
+#
 # Author: Caden Daffron
 #
 #########################################
@@ -11,10 +18,10 @@
 # PHYSICAL VALUES
 CAM_FOCAL_LEN_MM = 4.0
 CAM_PX_WID_MM = 4.396
-HZ_BAR_LEN_MM = 342.9
-HZ_BAR_THK_MM = 22.2
-VERT_BAR_LEN_MM = 260.35
-VERT_BAR_THK_MM = 22.2
+HZ_BAR_LEN_MM = 330.2
+HZ_BAR_THK_MM = 19.05
+VERT_BAR_LEN_MM = 254
+VERT_BAR_THK_MM = 22.225
 # END PHYSICAL VALUES
 
 # INDEX CONSTANTS
@@ -68,6 +75,8 @@ def avgDist(hz_bar, vert_bars):
     dist_by_vert_thk = None
     dist_by_vert_len = None
     
+    #
+    
     if vert_bars[LEFT_BAR] != []:
         avg_vert_bar_thk += vert_bars[LEFT_BAR][BOTTOM_RIGHT][VERT_X] - vert_bars[LEFT_BAR][TOP_LEFT][VERT_X]
         avg_vert_bar_len += vert_bars[LEFT_BAR][BOTTOM_RIGHT][VERT_Y] - vert_bars[LEFT_BAR][TOP_LEFT][VERT_Y]
@@ -103,14 +112,14 @@ def avgDist(hz_bar, vert_bars):
         wt_sum += DIST_BY_VT_LEN_WT
 
     overall_avg_dist /= wt_sum
-    print("Hz len:", avg_hz_len)
-    print("Hz len dist:", dist_by_hz_len)
-    print("Hz thk:", avg_hz_thk)
-    print("Hz thk dist:", dist_by_hz_thk)
-    print("Vt len:", avg_vert_bar_len)
-    print("Vt len dist:", dist_by_vert_len)
-    print("Vt thk:", avg_vert_bar_thk)
-    print("Vt thk dist:", dist_by_vert_thk)
+    #print("Hz len:", avg_hz_len)
+    #print("Hz len dist:", dist_by_hz_len)
+    #print("Hz thk:", avg_hz_thk)
+    #print("Hz thk dist:", dist_by_hz_thk)
+    #print("Vt len:", avg_vert_bar_len)
+    #print("Vt len dist:", dist_by_vert_len)
+    #print("Vt thk:", avg_vert_bar_thk)
+    #print("Vt thk dist:", dist_by_vert_thk)
     print("dist:", overall_avg_dist)
     return round(overall_avg_dist + 0.5)
 
