@@ -1,4 +1,15 @@
-
+#########################################
+#
+# This function accepts the pre-processed frame and attempts to locate the vertical
+# support bars of the target. Either one or two can be found, and it doesn't matter which.
+# 
+# Functions:
+# detectVerticals(frame, detect_vert_bar_min)
+# frame - the pre-processed camera frame, each element being either 0 or 255
+#
+# Author: Caden Daffron
+#
+#########################################
 from detectHorizontal import detectLine
 
 # Physical Parameters
@@ -22,11 +33,11 @@ Y_MIN_COORD = 0
 Y_MAX_COORD = 1
 #End Index Constants
 
-test_frame = [[0,   0,   0,   0, 255, 255, 255,   0, 0, 0],
-              [0,   0,   0, 255, 255, 255, 255, 255, 0, 0],
-              [0,   0, 255, 255, 255,   0, 255, 255, 0, 0],
-              [0, 255, 255, 255, 255,   0, 255, 255, 0, 0],
-              [0,   0,   0,   0,   0,   0,   0,   0, 0, 0]]
+#test_frame = [[0,   0,   0,   0, 255, 255, 255,   0, 0, 0],
+#              [0,   0,   0, 255, 255, 255, 255, 255, 0, 0],
+#              [0,   0, 255, 255, 255,   0, 255, 255, 0, 0],
+#              [0, 255, 255, 255, 255,   0, 255, 255, 0, 0],
+#              [0,   0,   0,   0,   0,   0,   0,   0, 0, 0]]
 
 def detectVerticals(frame, detect_vert_band_min):
     # Format: [Left_Bar_Corners, Right_Bar_Corners]

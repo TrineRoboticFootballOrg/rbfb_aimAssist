@@ -2,6 +2,9 @@
 #
 # This is the main loop of the program, which calls all lower functions
 #
+# Functions:
+# mainLoop()
+#
 # Author: Caden Daffron
 #
 ####################################################

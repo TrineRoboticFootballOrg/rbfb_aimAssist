@@ -2,6 +2,9 @@
 #
 # This file initializes pins, Enum types, the cv2 window, and variables used throughout
 #
+# Functions:
+# init()
+#
 # Author: Caden Daffron
 #
 ###########################################
@@ -11,18 +14,6 @@ import cv2
 #import wiringpi
 #from wiringpi import GPIO
 from gpiozero import LED, Button
-from enum import Enum
-
-class filter_mode(Enum):
-	PREVIEW  = 0
-	BLUR     = 1
-	HSV      = 2
-
-class algo_sel(Enum):
-    FEATURE  = 0
-    CANNY    = 1
-    CLUSTER  = 2
-
 
 
 def init():
@@ -53,4 +44,4 @@ def init():
 
     return (source, win_name, Tx_PIN, VISION_ACT_PIN, X_MIDLINE)
 
-init()
+#init()

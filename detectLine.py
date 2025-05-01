@@ -1,11 +1,26 @@
+#########################################
+#
+# This function accepts a single row from the pre-processed frame and determines
+# whether or not there is a continuous line in the row
+# 
+# Functions:
+# detectLine(row)
+# row - a single row of values from the frame, each element being either 0 or 255
+#
+# Author: Caden Daffron
+#
+#########################################
 
+# Constant Parameters
 MAX_GAP = 3
+# End Constant Parameters
 
 # Indexes
 LEFT_BOUND = 0
 RIGHT_BOUND = 1
+# End Indexes
 
-test_row = [0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 0, 0]
+#test_row = [0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 0, 0]
 
 def detectLine(row, MIN_LINE_LEN, MAX_LINE_LEN):
     line_start = 0

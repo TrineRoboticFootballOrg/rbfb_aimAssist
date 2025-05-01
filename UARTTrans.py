@@ -1,24 +1,47 @@
+#########################################
+#
+# This file accepts individual messages to be sent to the Teensy.
+# It simulates a Virtual UART to manually communicate with the Teensy's hardware UART.
+# For the Orange Pi, the default baud rate is 9600, but the Raspberry Pi 4 Model B requires 4800
+# 
+# Functions:
+# UARTTrans(MSG_TYPE, msg, Tx_Pin)
+# MSG_TYPE - the identifier for message type
+# msg - the content of the message
+# Tx_Pin - the pin object to be transmitted from
+#
+# binaryConvert(msg, msg_type)
+# msg - content of the message, decimal
+# msg_type - message type identifier
+#
+# Author: Caden Daffron
+#
+#########################################
+
 import sys
 from time import time, perf_counter, sleep
+import time
 #import wiringpi
 #from wiringpi import GPIO
 from gpiozero import LED
 
+# Constant Parameters
 DATA_LEN = 8
 MSG_LEN = 11 # Each message is 1 start bit + 9 Data bits + 1 stop bit
 BAUD_RATE = 4800 # DEFAULT: 9600 --- If you change this here, you must also change it on the Teensy
 Tx_PIN = 4
+# End Constant Parameters
 
 #wiringpi.wiringPiSetup()
 #wiringpi.pinMode(Tx_PIN, GPIO.OUTPUT)
 #wiringpi.digitalWrite(Tx_PIN, GPIO.HIGH)
 
-
+# MSG_TYPE Identifiers
 TURN_MSG  = 0
 DIST_MSG  = 1
 THROW_MSG = 2
+# End MSG_TYPE Identifiers
 
-import time
 
 def UARTTrans(MSG_TYPE, msg, Tx_PIN):
     

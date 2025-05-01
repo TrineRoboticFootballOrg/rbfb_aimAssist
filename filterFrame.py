@@ -1,6 +1,11 @@
 ###############################################
 #
-# This file takes in a still image and applies the selected filters to it.
+# This file takes in a still image, inverts it, transforms it into the HSV color space, and thresholds it.
+# See 2025 Senior Design Report Section on Aim Assist software for justification.
+#
+# Functions:
+# filterFrame(frame)
+# frame - the unfiltered frame captured by the webcam, in BGR colorspace
 #
 # Author: Caden Daffron
 #

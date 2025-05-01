@@ -1,4 +1,19 @@
-
+#########################################
+#
+# This function accepts the coordinates of the found shapes' corners,
+# calculates the target's midpoint based on each measurement, then 
+# does a weighted average to determine the final midpoint. Then, it 
+# subtracts the midpoint from the midline of the camera, and scales down and returns the result
+# 
+# Functions:
+# computeTurn(hz_bar, vert_bars, X_MIDLINE)
+# hz_bar - list of [x_min, x_max, y_coord] for all found lines
+# vert_bars - coords of corners of found vertical bars
+# X_MIDLINE - 1/2 the max value of x in the camera's output, found in init()
+#
+# Author: Caden Daffron
+#
+#########################################
 # INDEX CONSTANTS
 HZ_X_MIN = 0
 HZ_X_MAX = 1

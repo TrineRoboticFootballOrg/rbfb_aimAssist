@@ -1,3 +1,15 @@
+#########################################
+#
+# This function accepts the pre-processed frame and attempts to locate the horizontal top bar of the target.
+# 
+# Functions:
+# detectHorizontal(frame)
+# frame - the pre-processed camera frame, each element being either 0 or 255
+#
+# Author: Caden Daffron
+#
+#########################################
+
 from detectLine import detectLine
 
 # Physical Values
